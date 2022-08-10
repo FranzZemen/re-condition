@@ -1,18 +1,15 @@
 import 'mocha';
 import chai from 'chai';
-import {ConditionParser} from '../../../../publish/core/condition/parser/condition-parser';
-import {ConditionStringifier} from '../../../../publish/core/condition/stringifier/condition-stringifier';
-import {Scope} from '../../../../publish/core/scope';
-import {ScopeType} from '../../../../publish/core/scope-type';
+
 
 const expect = chai.expect;
 const should = chai.should();
 
 
 const unreachableCode = false;
-const parser = new ConditionParser();
-const scope = new Scope(ScopeType.Custom, 'Test');
-const stringifier = new ConditionStringifier();
+//const parser = new ConditionParser();
+//const scope = new Scope(ScopeType.Custom, 'Test');
+//const stringifier = new ConditionStringifier();
 /*
 describe('Rules Engine Tests', ()=>{
   describe('Condition Stringifier Tests', ()=>{

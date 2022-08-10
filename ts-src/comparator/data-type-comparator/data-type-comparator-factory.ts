@@ -1,7 +1,7 @@
-import {StandardComparator} from '../comparator/comparator';
-import {StandardDataType} from '../../../../re-data-type/ts-src';
 import {RuleElementFactory} from '@franzzemen/re-common';
 import {RuleElementInstanceReference} from '@franzzemen/re-common';
+import {StandardDataType} from '@franzzemen/re-data-type';
+import {StandardComparator} from '../comparator';
 
 export interface DataTypeComparatorRef {
   refName: string;

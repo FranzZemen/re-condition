@@ -1,4 +1,5 @@
 import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
+import {ConditionScope} from '../../scope/condition-scope';
 
 import {ComparatorI} from '../comparator';
 import {DataTypeComparatorFactory, DataTypeComparatorRef} from '../data-type-comparator/data-type-comparator-factory';
@@ -13,7 +14,7 @@ export class ComparatorParser {
     let comparatorRef: string;
 
     // Get list of allowed comparators
-    const dataTypeComparatorsFactory: DataTypeComparatorFactory = scope.get(ScopeKey.DataTypeComparatorFactory);
+    const dataTypeComparatorsFactory: DataTypeComparatorFactory = scope.get(ConditionScope.DataTypeComparatorFactory);
     if(allowUndefinedDataType) {
       // Returns the first match, noting that there *could* be more than one match
       const dataTypeComparatorRefs: DataTypeComparatorRef[] =  dataTypeComparatorsFactory.getAllInstances();
@@ -26,7 +27,7 @@ export class ComparatorParser {
           if (matched) {
             return [remaining, currComparatorRef];
           } else {
-            const currComparator: ComparatorI = scope.get(ScopeKey.ComparatorFactory).getRegistered(currComparatorRef, ec);
+            const currComparator: ComparatorI = scope.get(ConditionScope.ComparatorFactory).getRegistered(currComparatorRef, ec);
             for(let j = 0; j < currComparator.synonyms.length; j++) {
               const synonym = currComparator.synonyms[j];
               [remaining, matched] = ComparatorParser.match(remaining, synonym);
@@ -51,7 +52,7 @@ export class ComparatorParser {
         if (matched) {
           return [remaining, currComparatorRef];
         } else {
-          const currComparator: ComparatorI = scope.get(ScopeKey.ComparatorFactory).getRegistered(currComparatorRef, ec);
+          const currComparator: ComparatorI = scope.get(ConditionScope.ComparatorFactory).getRegistered(currComparatorRef, ec);
           for(let j = 0; j < currComparator.synonyms.length; j++) {
             const synonym = currComparator.synonyms[j];
             [remaining, matched] = ComparatorParser.match(remaining, synonym);

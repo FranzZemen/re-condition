@@ -1,23 +1,21 @@
 import 'mocha';
+import {isPromise} from '@franzzemen/re-common';
+import {StandardDataType} from '@franzzemen/re-data-type';
+import {
+  AttributeExpressionReference, ExpressionReference,
+  ExpressionType,
+  SetExpressionReference,
+  ValueExpressionReference
+} from '@franzzemen/re-expression';
 import chai from 'chai';
-import {ExpressionReference} from '../../../build/core/expression/expression';
-import {SetExpressionReference} from '../../../build/core/expression/set-expression';
-import {StandardComparator} from '../../../publish/core/comparator/comparator';
-import {Condition} from '../../../publish/core/condition/condition';
-import {ConditionReference} from '../../../publish/core/condition/condition-reference';
-import {StandardDataType} from '../../../publish/core/data-type';
-import {AttributeExpressionReference} from '../../../publish/core/expression/attribute-expression';
-import {ExpressionType} from '../../../publish/core/expression/expression';
-import {ValueExpressionReference} from '../../../publish/core/expression/value-expression';
-import {isPromise} from '../../../publish/core/is-promise';
-import {Scope} from '../../../publish/core/scope';
-import {ScopeType} from '../../../publish/core/scope-type';
+import {Condition, ConditionReference, ConditionScope, StandardComparator} from '../publish';
+
 
 
 let should = chai.should();
 let expect = chai.expect;
 
-const scope = new Scope(ScopeType.Custom, 'Test');
+const scope = new ConditionScope();
 const unreachableCode = false;
 
 

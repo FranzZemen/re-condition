@@ -1,4 +1,4 @@
-import {Comparator} from '../../../publish/core/comparator/comparator';
+import {Comparator} from '../publish';
 
 export class FooBarEqualityComparator extends Comparator {
   constructor() {

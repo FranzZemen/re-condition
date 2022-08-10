@@ -1,19 +1,19 @@
 import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
-import {ComparatorParser} from '../../comparator/parser/comparator-parser';
-import {ExpressionStackParser} from '../../../../../re-expression/ts-src/parser/expression-stack-parser';
-import {FragmentParser} from '../../recursive-grouping/parser/fragment-parser';
-import {ScopeKey} from '../../../../../re-common/ts-src/scope/scope-key';
+import {FragmentParser} from '@franzzemen/re-common';
+import {ExpressionReference, ExpressionScope, ExpressionStackParser} from '@franzzemen/re-expression';
+import {ComparatorParser} from '../comparator/parser/comparator-parser';
 import {ConditionReference} from '../condition-reference';
-import {ExpressionReference} from "../../../../../re-expression/ts-src/expression";
+import {ConditionScope} from '../scope/condition-scope';
+
 
 export class ConditionParser extends FragmentParser<ConditionReference>{
   constructor() {
     super();
   }
 
-  parse(remaining: string, scope: Map<string, any>, ec?: ExecutionContextI) : [string, ConditionReference] {
+  parse(remaining: string, scope:ConditionScope, ec?: ExecutionContextI) : [string, ConditionReference] {
     const log = new LoggerAdapter(ec, 'rules-engine', 'condition-parser', `${ConditionParser.name}.parse`);
-    const expressionStackParser: ExpressionStackParser = scope.get(ScopeKey.ExpressionStackParser);
+    const expressionStackParser: ExpressionStackParser = scope.get(ExpressionScope.ExpressionStackParser);
     let conditionRef: Partial<ConditionReference> = {};
     [remaining, conditionRef.lhsRef, conditionRef.comparatorRef, conditionRef.rhsRef] = ConditionParser.parseComparativeCondition(remaining, scope, ec);
 
@@ -41,10 +41,10 @@ export class ConditionParser extends FragmentParser<ConditionReference>{
     return [remaining, conditionRef as ConditionReference];
   }
 
-  static parseComparativeCondition(remaining: string, scope: Map<string, any>, ec?: ExecutionContextI): [string, ExpressionReference, string, ExpressionReference]{
+  static parseComparativeCondition(remaining: string, scope: ConditionScope, ec?: ExecutionContextI): [string, ExpressionReference, string, ExpressionReference]{
     const log = new LoggerAdapter(ec, 'rules-engine', 'condition-parser', `parseComparativeCondition`);
 
-    const expressionStackParser: ExpressionStackParser = scope.get(ScopeKey.ExpressionStackParser);
+    const expressionStackParser: ExpressionStackParser = scope.get(ExpressionScope.ExpressionStackParser);
     const comparatorParser = new ComparatorParser(); // TODO add to Scope
     // Attempt to parse RHS comparator LHS
     // The data type may be inferrable in RHS and not LHS, so allow the data type to be undefined.

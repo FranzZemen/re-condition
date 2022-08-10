@@ -1,21 +1,17 @@
 import 'mocha';
+import {StandardDataType} from '@franzzemen/re-data-type';
+import {ExpressionType, isAttributeExpressionReference, isValueExpressionReference} from '@franzzemen/re-expression';
 import chai from 'chai';
-import {StandardComparator} from '../../../../publish/core/comparator/comparator';
-import {ConditionParser} from '../../../../publish/core/condition/parser/condition-parser';
-import {StandardDataType} from '../../../../publish/core/data-type';
-import {isAttributeExpressionReference} from '../../../../publish/core/expression/attribute-expression';
-import {ExpressionType} from '../../../../publish/core/expression/expression';
-import {isValueExpressionReference} from '../../../../publish/core/expression/value-expression';
-import {LogicalOperator} from '../../../../publish/core/logical-condition/logical-condition-group-reference';
-import {Scope} from '../../../../publish/core/scope';
-import {ScopeType} from '../../../../publish/core/scope-type';
+import {ConditionParser, ConditionScope, StandardComparator} from '../../publish';
+
+
 
 const expect = chai.expect;
 const should = chai.should();
 
 const unreachableCode = false;
 const parser = new ConditionParser();
-const scope = new Scope(ScopeType.Custom, 'Test');
+const scope = new ConditionScope();
 
 describe('Rules Engine Tests', ()=> {
   describe('Condition Parser Tests', () => {

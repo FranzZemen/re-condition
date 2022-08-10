@@ -1,10 +1,15 @@
 import {ExecutionContextI, Hints, LoggerAdapter} from '@franzzemen/app-utility';
 import {StandardDataType} from '@franzzemen/re-data-type';
-import {ExpressionReference, ExpressionType} from '../expression';
-import {ExpressionScope} from '../scope/expression-scope';
-import {ExpressionHintKey} from '../util/expression-hint-key';
-import {ExpressionParser} from './expression-parser';
-import {ExpressionStackParser} from './expression-stack-parser';
+import {
+  ExpressionHintKey,
+  ExpressionParser, ExpressionReference,
+  ExpressionScope,
+  ExpressionStackParser,
+  ExpressionType
+} from '@franzzemen/re-expression';
+import {ComparatorParser} from '../comparator/parser/comparator-parser';
+import {ConditionExpressionReference} from '../condition-expression';
+
 
 export class ConditionExpressionParser extends ExpressionParser {
   constructor() {

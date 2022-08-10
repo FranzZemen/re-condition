@@ -1,7 +1,10 @@
-import {AttributeExpressionReference} from '../../../../re-expression/ts-src/attribute-expression';
-import {ExpressionReference} from '../../../../re-expression/ts-src/expression';
-import {FunctionExpressionReference} from '../../../../re-expression/ts-src/function-expression';
-import {ValueExpressionReference} from '../../../../re-expression/ts-src/value-expression';
+
+import {
+  AttributeExpressionReference,
+  ExpressionReference,
+  FunctionExpressionReference,
+  ValueExpressionReference
+} from '@franzzemen/re-expression';
 import {Condition} from './condition';
 
 export type ExpressionReferences = ExpressionReference | ValueExpressionReference | AttributeExpressionReference | FunctionExpressionReference;

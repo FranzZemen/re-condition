@@ -1,11 +1,11 @@
 import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
-import {ComparatorI} from '../comparator/comparator';
-import {ComparatorFactory} from '../comparator/comparator-factory';
-import {Expression} from '../../../../re-expression/ts-src/expression';
-import {ExpressionFactory} from '../../../../re-expression/ts-src/expression-factory';
-import {isPromise} from '../../../../re-common/ts-src/util/is-promise';
-import {ScopeKey} from '../../../../re-common/ts-src/scope/scope-key';
+import {isPromise} from '@franzzemen/re-common';
+import {Expression, ExpressionFactory, ExpressionScope} from '@franzzemen/re-expression';
+import {ComparatorI} from './comparator/comparator';
+import {ComparatorFactory} from './comparator/comparator-factory';
+
 import {ConditionReference} from './condition-reference';
+import {ConditionScope} from './scope/condition-scope';
 
 
 
@@ -27,17 +27,17 @@ export class Condition implements ConditionI {
   comparator:  ComparatorI;
   rhs: Expression;
 
-  constructor(fromCondition?: ConditionReference | Condition, scope?: Map<string, any>, ec?: ExecutionContextI) {
+  constructor(fromCondition?: ConditionReference | Condition, scope?: ConditionScope, ec?: ExecutionContextI) {
     if(fromCondition && scope) {
       Condition.fromToInstance(this, fromCondition, scope, ec);
     }
   }
 
-  static from(fromCondition: ConditionReference | Condition, scope: Map<string, any>, ec?: ExecutionContextI): ConditionI {
+  static from(fromCondition: ConditionReference | Condition, scope: ConditionScope, ec?: ExecutionContextI): ConditionI {
      return new Condition(fromCondition, scope, ec);
   }
 
-  private static fromToInstance(instance: Condition, fromCondition: ConditionReference | Condition, scope: Map<string, any>, ec?: ExecutionContextI) {
+  private static fromToInstance(instance: Condition, fromCondition: ConditionReference | Condition, scope: ConditionScope, ec?: ExecutionContextI) {
     if(isCondition(fromCondition)) {
       Condition.fromCopy(instance, fromCondition, scope, ec);
     } else {
@@ -45,17 +45,17 @@ export class Condition implements ConditionI {
     }
   }
 
-  private static fromReference(instance: Condition, conditionRef: ConditionReference, scope: Map<string, any>, ec?: ExecutionContextI) {
+  private static fromReference(instance: Condition, conditionRef: ConditionReference, scope: ConditionScope, ec?: ExecutionContextI) {
     if (instance && conditionRef && conditionRef.lhsRef && conditionRef.rhsRef && conditionRef.comparatorRef) {
       // Validate data types
       if(conditionRef.lhsRef.dataTypeRef !== conditionRef.rhsRef.dataTypeRef) {
         throw new Error ('Inconsistent condition lhs, rhs data types');
       }
-      const expressionFactory: ExpressionFactory = scope.get(ScopeKey.ExpressionFactory);
+      const expressionFactory: ExpressionFactory = scope.get(ExpressionScope.ExpressionFactory);
       instance.lhs = expressionFactory.createExpression(conditionRef.lhsRef, scope, ec);
       instance.rhs = expressionFactory.createExpression(conditionRef.rhsRef, scope, ec);
 
-      const comparatorFactory: ComparatorFactory = scope.get(ScopeKey.ComparatorFactory);
+      const comparatorFactory: ComparatorFactory = scope.get(ConditionScope.ComparatorFactory);
       instance.comparator = comparatorFactory.getRegistered(conditionRef.comparatorRef);
       // TODO validate that comparator and expressions have consistent data types?
     } else {
@@ -64,17 +64,17 @@ export class Condition implements ConditionI {
   }
 
 
-  private static fromCopy(instance: Condition, condition: ConditionI, scope: Map<string, any>, ec?: ExecutionContextI) {
+  private static fromCopy(instance: Condition, condition: ConditionI, scope: ConditionScope, ec?: ExecutionContextI) {
     if (instance && condition && condition.lhs && condition.rhs && condition.comparator) {
       // Validate data types
       if(condition.lhs.dataType !== condition.rhs.dataType) {
         throw new Error ('Inconsistent condition lhs, rhs data types');
       }
-      const expressionFactory: ExpressionFactory = scope.get(ScopeKey.ExpressionFactory);
+      const expressionFactory: ExpressionFactory = scope.get(ExpressionScope.ExpressionFactory);
       instance.lhs = expressionFactory.createExpression(condition.lhs, scope, ec);
       instance.rhs = expressionFactory.createExpression(condition.rhs, scope, ec);
 
-      const comparatorFactory: ComparatorFactory = scope.get(ScopeKey.ComparatorFactory);
+      const comparatorFactory: ComparatorFactory = scope.get(ConditionScope.ComparatorFactory);
       instance.comparator = comparatorFactory.getRegistered(condition.comparator.refName);
 
       // TODO validate that comparator and expressions have consistent data types?
