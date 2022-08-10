@@ -8,7 +8,7 @@ import {
   ExpressionType
 } from '@franzzemen/re-expression';
 import {ComparatorParser} from '../comparator/parser/comparator-parser';
-import {ConditionExpressionReference} from '../condition-expression';
+import {ConditionExpressionReference} from '../expression/condition-expression';
 
 
 export class ConditionExpressionParser extends ExpressionParser {
