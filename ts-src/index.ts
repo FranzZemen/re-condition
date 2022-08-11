@@ -1,3 +1,4 @@
+export * from './util/external-index';
 export * from './comparator/external-index';
 export * from './condition';
 export * from './condition-reference';
