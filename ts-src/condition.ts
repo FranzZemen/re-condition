@@ -42,6 +42,11 @@ export class Condition implements ConditionI {
 
     const comparatorFactory: ComparatorFactory = scope.get(ConditionScope.ComparatorFactory);
     this.comparator = comparatorFactory.getRegistered(ref.comparatorRef);
+
+    if(!scope.isResolved()) {
+      const log = new LoggerAdapter(ec, 're-condition', 'condition', 'constructor');
+      log.debug({scope}, 'Scope needs to be externally resolved');
+    }
   }
 
   to(ec?: ExecutionContextI): ConditionReference {
