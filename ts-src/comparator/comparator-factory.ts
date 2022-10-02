@@ -1,5 +1,5 @@
 import {RuleElementFactory} from '@franzzemen/re-common';
-import {ComparatorI, isComparator, StandardComparator} from './comparator';
+import {ComparatorI, isComparator, StandardComparator} from './comparator.js';
 import {
   MomentEarlierComparator,
   MomentEqualityComparator,
@@ -7,7 +7,7 @@ import {
   MomentLaterComparator,
   MomentNowOrEarlierComparator,
   MomentNowOrLaterComparator
-} from './moment/external-index';
+} from './moment/external-index.js';
 import {
   StandardEqualityComparator,
   StandardGreaterThanComparator,
@@ -16,7 +16,7 @@ import {
   StandardLessThanComparator,
   StandardLessThanOrEqualComparator,
   StandardLikeComparator
-} from './standard/external-index';
+} from './standard/external-index.js';
 
 
 export function setComparator(synonyms: string[], comparator: ComparatorI) : Map<string, ComparatorI> {
@@ -36,58 +36,58 @@ export class ComparatorFactory extends RuleElementFactory<ComparatorI> {
     super();
     if(populateStandard) {
       // Inequality operator should be ahead of equality operator due to "is not" synonym needing to be parsed before "is"
-      this.register({
+      this.register({instanceRef: {
         refName: StandardComparator.StandardInequality,
         instance: new StandardInequalityComparator()
-      });
-      this.register({
+      }});
+      this.register({instanceRef: {
         refName: StandardComparator.StandardEquality,
         instance: new StandardEqualityComparator()
-      });
-      this.register({
+      }});
+      this.register({instanceRef: {
         refName: StandardComparator.StandardLessThan,
         instance: new StandardLessThanComparator()
-      });
-      this.register({
+      }});
+      this.register({instanceRef: {
         refName: StandardComparator.StandardLessThanOrEqual,
         instance: new StandardLessThanOrEqualComparator()
-      });
-      this.register({
+      }});
+      this.register({instanceRef: {
         refName: StandardComparator.StandardGreaterThan,
         instance: new StandardGreaterThanComparator()
-      });
-      this.register({
+      }});
+      this.register({instanceRef: {
         refName: StandardComparator.StandardGreaterThanOrEqual,
         instance: new StandardGreaterThanOrEqualComparator()
-      });
-      this.register({
+      }});
+      this.register({instanceRef: {
         refName: StandardComparator.StandardLike,
         instance: new StandardLikeComparator()
-      });
-      this.register({
+      }});
+      this.register({instanceRef: {
         refName: StandardComparator.MomentEquality,
         instance: new MomentEqualityComparator()
-      });
-      this.register({
+      }});
+      this.register({instanceRef: {
         refName: StandardComparator.MomentInequality,
         instance: new MomentInequalityComparator()
-      });
-      this.register({
+      }});
+      this.register({instanceRef: {
         refName: StandardComparator.MomentLater,
         instance: new MomentLaterComparator()
-      });
-      this.register({
+      }});
+      this.register({instanceRef: {
         refName: StandardComparator.MomentNowOrLater,
         instance: new MomentNowOrLaterComparator()
-      });
-      this.register({
+      }});
+      this.register({instanceRef: {
         refName: StandardComparator.MomentEarlier,
         instance: new MomentEarlierComparator()
-      });
-      this.register({
+      }});
+      this.register({instanceRef: {
         refName: StandardComparator.MomentNowOrEarlier,
         instance: new MomentNowOrEarlierComparator()
-      });
+      }});
     }
   }
 }

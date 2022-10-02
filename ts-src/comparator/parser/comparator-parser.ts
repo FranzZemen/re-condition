@@ -1,69 +1,64 @@
-import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
-import {ConditionScope} from '../../scope/condition-scope';
-
-import {ComparatorI} from '../comparator';
-import {DataTypeComparatorFactory, DataTypeComparatorRef} from '../data-type-comparator/data-type-comparator-factory';
+import {ExecutionContextI} from '@franzzemen/app-utility';
+import {ParserMessages, PsMsgType} from '@franzzemen/re-common';
+import {StandardDataType} from '@franzzemen/re-data-type';
+import {ConditionScope} from '../../scope/condition-scope.js';
+import {ComparatorI} from '../comparator.js';
+import {
+  DataTypeComparatorFactory,
+  DataTypeComparatorRef
+} from '../data-type-comparator/data-type-comparator-factory.js';
 
 export class ComparatorParser {
   constructor() {
   }
 
-  parse(remaining: string, dataTypeRef: string, scope?: Map<string, any>, allowUndefinedDataType = false, ec?: ExecutionContextI): [string, string] {
-    const log = new LoggerAdapter(ec, 'rules-engine', 'comparator-parser', ComparatorParser.name + '.parse');
+  parse(remaining: string, dataTypeRef: string, scope: ConditionScope, ec?: ExecutionContextI): [string, string, ParserMessages] {
+    // const log = new LoggerAdapter(ec, 're-condition', 'comparator-parser', ComparatorParser.name + '.parse');
     const near = remaining;
-    let comparatorRef: string;
+    let messages: ParserMessages;
+    let comparatorRefName: string;
 
     // Get list of allowed comparators
     const dataTypeComparatorsFactory: DataTypeComparatorFactory = scope.get(ConditionScope.DataTypeComparatorFactory);
-    if(allowUndefinedDataType) {
+    if(dataTypeRef === StandardDataType.Unknown || dataTypeRef === StandardDataType.Indeterminate) {
       // Returns the first match, noting that there *could* be more than one match
       const dataTypeComparatorRefs: DataTypeComparatorRef[] =  dataTypeComparatorsFactory.getAllInstances();
       for(let j = 0; j < dataTypeComparatorRefs.length; j++) {
         const dataTypeComparatorRef = dataTypeComparatorRefs[j];
-        for (let i = 0; i < dataTypeComparatorRef.comparators.length; i++) {
-          let matched = false;
-          const currComparatorRef = dataTypeComparatorRef.comparators[i];
-          [remaining, matched] = ComparatorParser.match(remaining, currComparatorRef);
-          if (matched) {
-            return [remaining, currComparatorRef];
-          } else {
-            const currComparator: ComparatorI = scope.get(ConditionScope.ComparatorFactory).getRegistered(currComparatorRef, ec);
-            for(let j = 0; j < currComparator.synonyms.length; j++) {
-              const synonym = currComparator.synonyms[j];
-              [remaining, matched] = ComparatorParser.match(remaining, synonym);
-              if(matched) {
-                return [remaining, currComparatorRef];
-              }
-            }
-          }
+        [remaining, comparatorRefName, messages] = ComparatorParser._determineComparator(remaining, dataTypeComparatorRef, scope, ec);
+        if(comparatorRefName) {
+          return [remaining, comparatorRefName, messages];
         }
       }
     } else {
       const dataTypeComparatorRef: DataTypeComparatorRef = dataTypeComparatorsFactory.getRegistered(dataTypeRef);
-      if (!dataTypeComparatorRef || !dataTypeComparatorRef.comparators || dataTypeComparatorRef.comparators.length === 0) {
-        const err = new Error(`No comparators for data type ${dataTypeRef} near '${near}'`);
-        log.error(err);
-        throw err;
+      if (!dataTypeComparatorRef?.comparators?.length) {
+        return [near, undefined, [{message: `No comparators for data type ${dataTypeRef} near '${near}'`, type: PsMsgType.Error}]];
       }
-      for (let i = 0; i < dataTypeComparatorRef.comparators.length; i++) {
-        let matched = false;
-        const currComparatorRef = dataTypeComparatorRef.comparators[i];
-        [remaining, matched] = ComparatorParser.match(remaining, currComparatorRef);
-        if (matched) {
-          return [remaining, currComparatorRef];
-        } else {
-          const currComparator: ComparatorI = scope.get(ConditionScope.ComparatorFactory).getRegistered(currComparatorRef, ec);
-          for(let j = 0; j < currComparator.synonyms.length; j++) {
-            const synonym = currComparator.synonyms[j];
-            [remaining, matched] = ComparatorParser.match(remaining, synonym);
-            if(matched) {
-              return [remaining, currComparatorRef];
-            }
+      return ComparatorParser._determineComparator(remaining,dataTypeComparatorRef, scope, ec);
+    }
+    return [near, undefined, undefined];
+  }
+
+  private static _determineComparator(remaining: string, dataTypeComparatorRef: DataTypeComparatorRef, scope: ConditionScope, ec?: ExecutionContextI): [string, string, ParserMessages] {
+    for (let i = 0; i < dataTypeComparatorRef.comparators.length; i++) {
+      let matched = false;
+      const currComparatorRef = dataTypeComparatorRef.comparators[i];
+      [remaining, matched] = ComparatorParser.match(remaining, currComparatorRef);
+      if (matched) {
+        return [remaining, currComparatorRef, undefined];
+      } else {
+        const currComparator: ComparatorI = scope.get(ConditionScope.ComparatorFactory).getRegistered(currComparatorRef, ec);
+        for(let j = 0; j < currComparator.synonyms.length; j++) {
+          const synonym = currComparator.synonyms[j];
+          [remaining, matched] = ComparatorParser.match(remaining, synonym);
+          if(matched) {
+            return [remaining, currComparatorRef, undefined];
           }
         }
       }
     }
-    return [remaining, undefined];
+    return [remaining, undefined, undefined];
   }
 
   private static match(remaining: string, comparatorSymbol: string): [string, boolean] {

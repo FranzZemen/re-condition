@@ -1,4 +1,4 @@
-import {Comparator, StandardComparator} from '../comparator';
+import {Comparator, StandardComparator} from '../comparator.js';
 
 export class StandardLessThanComparator extends Comparator {
   constructor(symbol = StandardComparator.StandardLessThan) {

@@ -1,5 +1,6 @@
-import {isMoment} from 'moment';
-import {Comparator, StandardComparator} from '../comparator';
+import moment from 'moment';
+const isMoment = moment.isMoment;
+import {Comparator, StandardComparator} from '../comparator.js';
 
 
 export class MomentNowOrLaterComparator extends Comparator {

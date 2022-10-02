@@ -2,7 +2,7 @@ import 'mocha';
 import {StandardDataType} from '@franzzemen/re-data-type';
 import {ExpressionType, isAttributeExpressionReference, isValueExpressionReference} from '@franzzemen/re-expression';
 import chai from 'chai';
-import {ConditionParser, ConditionScope, StandardComparator} from '../../publish';
+import {ConditionParser, ConditionScope, StandardComparator} from '../../publish/index.js';
 
 
 

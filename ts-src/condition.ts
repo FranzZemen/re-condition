@@ -1,21 +1,24 @@
 import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
-import {isPromise} from '@franzzemen/re-common';
-import {Expression, ExpressionFactory, ExpressionScope} from '@franzzemen/re-expression';
-import {ComparatorI} from './comparator/comparator';
-import {ComparatorFactory} from './comparator/comparator-factory';
+import {logErrorAndThrow} from '@franzzemen/app-utility/enhanced-error.js';
+import {isPromise} from 'node:util/types';
+import {StandardDataType} from '@franzzemen/re-data-type';
+import {Expression, ExpressionFactory, ExpressionScope, ExPsStdMsg} from '@franzzemen/re-expression';
+import {ComparatorI} from './comparator/comparator.js';
+import {ComparatorFactory} from './comparator/comparator-factory.js';
 
-import {ConditionReference} from './condition-reference';
-import {ConditionScope} from './scope/condition-scope';
-
+import {ConditionReference} from './condition-reference.js';
+import {ConditionScope} from './scope/condition-scope.js';
 
 
 // TODO ConditionI's shape will be much more generic, to take into account combinatorial conditiosn, for example
 export interface ConditionI {
-  comparator:  ComparatorI;
+  comparator: ComparatorI;
   lhs: Expression;
   rhs: Expression;
+
   to(ec?: ExecutionContextI): ConditionReference;
-  awaitValidation(item: any, scope: Map<string, any>, ec?: ExecutionContextI): boolean | Promise<boolean>
+
+  awaitValidation(item: any, scope: Map<string, any>, ec?: ExecutionContextI): boolean | Promise<boolean>;
 }
 
 export function isCondition(condition: ConditionReference | ConditionI): condition is ConditionI {
@@ -24,80 +27,47 @@ export function isCondition(condition: ConditionReference | ConditionI): conditi
 
 export class Condition implements ConditionI {
   lhs: Expression;
-  comparator:  ComparatorI;
+  comparator: ComparatorI;
   rhs: Expression;
 
-  constructor(fromCondition?: ConditionReference | Condition, scope?: ConditionScope, ec?: ExecutionContextI) {
-    if(fromCondition && scope) {
-      Condition.fromToInstance(this, fromCondition, scope, ec);
-    }
-  }
-
-  static from(fromCondition: ConditionReference | Condition, scope: ConditionScope, ec?: ExecutionContextI): ConditionI {
-     return new Condition(fromCondition, scope, ec);
-  }
-
-  private static fromToInstance(instance: Condition, fromCondition: ConditionReference | Condition, scope: ConditionScope, ec?: ExecutionContextI) {
-    if(isCondition(fromCondition)) {
-      Condition.fromCopy(instance, fromCondition, scope, ec);
-    } else {
-      Condition.fromReference(instance, fromCondition, scope, ec);
-    }
-  }
-
-  private static fromReference(instance: Condition, conditionRef: ConditionReference, scope: ConditionScope, ec?: ExecutionContextI) {
-    if (instance && conditionRef && conditionRef.lhsRef && conditionRef.rhsRef && conditionRef.comparatorRef) {
-      // Validate data types
-      if(conditionRef.lhsRef.dataTypeRef !== conditionRef.rhsRef.dataTypeRef) {
-        throw new Error ('Inconsistent condition lhs, rhs data types');
+  constructor(ref: ConditionReference, scope: ConditionScope, ec?: ExecutionContextI) {
+    if(ref.lhsRef.dataTypeRef !== StandardDataType.Unknown && ref.rhsRef.dataTypeRef !== StandardDataType.Unknown) {
+      if (ref.lhsRef.dataTypeRef !== ref.rhsRef.dataTypeRef) {
+        throw new Error('Inconsistent condition lhs, rhs data types');
       }
-      const expressionFactory: ExpressionFactory = scope.get(ExpressionScope.ExpressionFactory);
-      instance.lhs = expressionFactory.createExpression(conditionRef.lhsRef, scope, ec);
-      instance.rhs = expressionFactory.createExpression(conditionRef.rhsRef, scope, ec);
-
-      const comparatorFactory: ComparatorFactory = scope.get(ConditionScope.ComparatorFactory);
-      instance.comparator = comparatorFactory.getRegistered(conditionRef.comparatorRef);
-      // TODO validate that comparator and expressions have consistent data types?
-    } else {
-      throw new Error('Undefined or inconsistent condition reference');
     }
-  }
+    const expressionFactory: ExpressionFactory = scope.get(ExpressionScope.ExpressionFactory);
+    this.lhs = expressionFactory.createExpression(ref.lhsRef, scope, ec);
+    this.rhs = expressionFactory.createExpression(ref.rhsRef, scope, ec);
 
-
-  private static fromCopy(instance: Condition, condition: ConditionI, scope: ConditionScope, ec?: ExecutionContextI) {
-    if (instance && condition && condition.lhs && condition.rhs && condition.comparator) {
-      // Validate data types
-      if(condition.lhs.dataType !== condition.rhs.dataType) {
-        throw new Error ('Inconsistent condition lhs, rhs data types');
-      }
-      const expressionFactory: ExpressionFactory = scope.get(ExpressionScope.ExpressionFactory);
-      instance.lhs = expressionFactory.createExpression(condition.lhs, scope, ec);
-      instance.rhs = expressionFactory.createExpression(condition.rhs, scope, ec);
-
-      const comparatorFactory: ComparatorFactory = scope.get(ConditionScope.ComparatorFactory);
-      instance.comparator = comparatorFactory.getRegistered(condition.comparator.refName);
-
-      // TODO validate that comparator and expressions have consistent data types?
-    } else {
-      throw new Error('Undefined condition');
-    }
+    const comparatorFactory: ComparatorFactory = scope.get(ConditionScope.ComparatorFactory);
+    this.comparator = comparatorFactory.getRegistered(ref.comparatorRef);
   }
 
   to(ec?: ExecutionContextI): ConditionReference {
     return {lhsRef: this.lhs.to(ec), comparatorRef: this.comparator.refName, rhsRef: this.rhs.to(ec)};
   }
 
-  awaitValidation(item: any, scope: Map<string, any>, ec?: ExecutionContextI): boolean | Promise<boolean> {
-    const log = new LoggerAdapter(ec, 'rules-engine', 'condition', 'isValid');
-    if (this.lhs.dataType.refName !== this.rhs.dataType.refName) {
-      const err = new Error(`Condition does not have equivalent lhs and rhs data types`);
-      log.error(err);
-      throw err;
+  awaitValidation(item: any, scope: ConditionScope, ec?: ExecutionContextI): boolean | Promise<boolean> {
+    const log = new LoggerAdapter(ec, 're-condition', 'condition', 'awaitValidation');
+    const lhsDataTypeRef = this.lhs.dataType.refName;
+    const rhsDataTypeRef = this.rhs.dataType.refName;
+    const lhsUnknown = lhsDataTypeRef === StandardDataType.Unknown;
+    const rhsUnknown = rhsDataTypeRef === StandardDataType.Unknown;
+
+    if(lhsUnknown && scope.get(ConditionScope.AllowUnknownDataType) === false) {
+      logErrorAndThrow(`${ExPsStdMsg.ImproperUsageOfUnknown} for condition lhs`, log, ec);
     }
-    if(!this.comparator) {
-      const err = new Error ('No comparator');
-      log.error(err);
-      throw err;
+    if(rhsUnknown && scope.get(ConditionScope.AllowUnknownDataType) === false) {
+      logErrorAndThrow(`${ExPsStdMsg.ImproperUsageOfUnknown} for condition rhs`, log, ec);
+    }
+    if(!lhsUnknown && !rhsUnknown && lhsDataTypeRef !== rhsDataTypeRef) {
+      // TODO: Option to attempt implicit conversion
+      log.warn({condition: this, item}, 'lhs and rhs data types are different, evaluating to false');
+      return false;
+    }
+    if (!this.comparator) {
+      logErrorAndThrow('No comparator', log, ec);
     }
     const lhsEvaluation = this.lhs.awaitEvaluation(item, scope, ec);
     const rhsEvaluation = this.rhs.awaitEvaluation(item, scope, ec);
@@ -114,7 +84,7 @@ export class Condition implements ConditionI {
     } else if (isPromise(rhsEvaluation)) {
       return rhsEvaluation.then(rhsR => {
         return this.comparator.compare(lhsEvaluation, rhsR, ec);
-      })
+      });
     } else {
       return this.comparator.compare(lhsEvaluation, rhsEvaluation, ec);
     }

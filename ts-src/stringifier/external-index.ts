@@ -1,2 +1,2 @@
-export * from './stringify-condition-options';
-export * from './condition-stringifier';
+export * from './stringify-condition-options.js';
+export * from './condition-stringifier.js';

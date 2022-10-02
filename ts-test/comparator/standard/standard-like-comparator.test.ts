@@ -1,6 +1,6 @@
 import 'mocha';
 import chai from 'chai';
-import {StandardLikeComparator} from '../../../publish';
+import {StandardLikeComparator} from '../../../publish/index.js';
 
 
 const expect = chai.expect;

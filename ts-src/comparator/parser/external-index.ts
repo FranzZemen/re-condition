@@ -1,1 +1,1 @@
-export * from './comparator-parser';
+export * from './comparator-parser.js';

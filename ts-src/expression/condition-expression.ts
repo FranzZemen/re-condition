@@ -1,6 +1,6 @@
 import {ExecutionContextI} from '@franzzemen/app-utility';
 import {Expression, ExpressionReference, ExpressionScope, ExpressionType} from '@franzzemen/re-expression';
-import {ComparatorI, StandardComparator} from '../comparator/comparator';
+import {ComparatorI, StandardComparator} from '../comparator/comparator.js';
 
 export function isConditionExpressionReference(ref: any | ConditionExpressionReference): ref is ConditionExpressionReference {
   return 'lhsRef' in ref && 'rhsRef' in ref && 'comparatorRef' in ref && ref.type === ExpressionType.Condition;

@@ -1,2 +1,2 @@
-export * from './condition-parser';
-export * from './condition-expression-parser';
+export * from './condition-parser.js';
+export * from './condition-expression-parser.js';

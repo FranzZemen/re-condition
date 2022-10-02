@@ -1,13 +1,14 @@
 import chai from 'chai';
 import 'mocha'
+import {ComparatorFactory, ComparatorI, StandardComparator} from '../../publish/index.js';
 
 const should = chai.should();
 const expect = chai.expect;
 
 describe('Rules Engine Tests', () => {
   describe('Comparator Factory Tests', () => {
-    /* TODO REINSTORE
-    it('should register standard operators', done => {
+    it('should register standard operators', () => {
+      const comparatorFactory: ComparatorFactory = new ComparatorFactory(true);
       let comparator: ComparatorI = comparatorFactory.getRegistered(StandardComparator.StandardEquality);
       comparator.refName.should.equal(StandardComparator.StandardEquality);
 
@@ -46,9 +47,6 @@ describe('Rules Engine Tests', () => {
 
       comparator = comparatorFactory.getRegistered(StandardComparator.MomentNowOrEarlier);
       comparator.refName.should.equal(StandardComparator.MomentNowOrEarlier);
-      done();
     });
-
-     */
   })
 });

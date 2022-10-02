@@ -1,7 +1,7 @@
 import 'mocha';
 import {StandardDataType} from '@franzzemen/re-data-type';
 import chai from 'chai';
-import {ComparatorParser, ConditionScope} from '../../../publish';
+import {ComparatorParser, ConditionScope} from '../../../publish/index.js';
 
 
 const expect = chai.expect;

@@ -1,4 +1,4 @@
-import {Comparator} from '../publish';
+import {Comparator} from '../publish/index.js';
 
 export class FooBarEqualityComparator extends Comparator {
   constructor() {

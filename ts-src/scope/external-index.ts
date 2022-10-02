@@ -1,2 +1,2 @@
-export * from './condition-options';
-export * from './condition-scope';
+export * from './condition-options.js';
+export * from './condition-scope.js';

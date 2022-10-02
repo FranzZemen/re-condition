@@ -1,7 +1,7 @@
 import {RuleElementFactory} from '@franzzemen/re-common';
 import {RuleElementInstanceReference} from '@franzzemen/re-common';
 import {StandardDataType} from '@franzzemen/re-data-type';
-import {StandardComparator} from '../comparator';
+import {StandardComparator} from '../comparator.js';
 
 export interface DataTypeComparatorRef {
   refName: string;
@@ -23,7 +23,7 @@ export class DataTypeComparatorFactory extends RuleElementFactory<DataTypeCompar
       }
     };
     DataTypeComparatorFactory.sortLargestToSmallest(textComparators.instance.comparators);
-    this.register(textComparators);
+    this.register({instanceRef: textComparators});
 
     const numberComparators: RuleElementInstanceReference<DataTypeComparatorRef> = {
       refName: StandardDataType.Number,
@@ -40,7 +40,7 @@ export class DataTypeComparatorFactory extends RuleElementFactory<DataTypeCompar
       }
     };
     DataTypeComparatorFactory.sortLargestToSmallest(numberComparators.instance.comparators);
-    this.register(numberComparators);
+    this.register({instanceRef: numberComparators});
 
     const floatComparators: RuleElementInstanceReference<DataTypeComparatorRef> = {
       refName: StandardDataType.Float,
@@ -57,7 +57,7 @@ export class DataTypeComparatorFactory extends RuleElementFactory<DataTypeCompar
       }
     };
     DataTypeComparatorFactory.sortLargestToSmallest(floatComparators.instance.comparators);
-    this.register(floatComparators);
+    this.register({instanceRef: floatComparators});
 
 
     const booleanOperators: RuleElementInstanceReference<DataTypeComparatorRef> = {
@@ -71,7 +71,7 @@ export class DataTypeComparatorFactory extends RuleElementFactory<DataTypeCompar
       }
     };
     DataTypeComparatorFactory.sortLargestToSmallest(booleanOperators.instance.comparators);
-    this.register(booleanOperators);
+    this.register({instanceRef: booleanOperators});
 
 
     const timestampComparators: RuleElementInstanceReference<DataTypeComparatorRef> = {
@@ -89,7 +89,7 @@ export class DataTypeComparatorFactory extends RuleElementFactory<DataTypeCompar
       }
     };
     DataTypeComparatorFactory.sortLargestToSmallest(timestampComparators.instance.comparators);
-    this.register(timestampComparators);
+    this.register({instanceRef: timestampComparators});
 
     const dateComparators: RuleElementInstanceReference<DataTypeComparatorRef> = {
       refName: StandardDataType.Date,
@@ -106,7 +106,7 @@ export class DataTypeComparatorFactory extends RuleElementFactory<DataTypeCompar
       }
     };
     DataTypeComparatorFactory.sortLargestToSmallest(dateComparators.instance.comparators);
-    this.register(dateComparators);
+    this.register({instanceRef: dateComparators});
 
     const timeComparators: RuleElementInstanceReference<DataTypeComparatorRef> = {
       refName: StandardDataType.Time,
@@ -123,7 +123,7 @@ export class DataTypeComparatorFactory extends RuleElementFactory<DataTypeCompar
       }
     };
     DataTypeComparatorFactory.sortLargestToSmallest(timeComparators.instance.comparators);
-    this.register(timeComparators);
+    this.register({instanceRef: timeComparators});
   }
 
   static sortLargestToSmallest(comparators:  string[]) {

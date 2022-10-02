@@ -1,5 +1,5 @@
 import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
-import {Comparator, StandardComparator} from '../comparator';
+import {Comparator, StandardComparator} from '../comparator.js';
 
 function escapeRegex(string): string {
   return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
