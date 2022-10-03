@@ -5,7 +5,7 @@ import {
   AttributeExpression,
   AttributeExpressionReference,
   ExpressionReference,
-  ExpressionType,
+  StandardExpressionType,
   SetExpressionReference,
   ValueExpressionReference
 } from '@franzzemen/re-expression';
@@ -37,12 +37,12 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 5,
             dataTypeRef: StandardDataType.Number,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
             value: '5',
             dataTypeRef: StandardDataType.Number,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -66,12 +66,12 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 5,
             dataTypeRef: StandardDataType.Number,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
             value: '6',
             dataTypeRef: StandardDataType.Number,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -95,12 +95,12 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 5,
             dataTypeRef: StandardDataType.Number,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
             value: '4',
             dataTypeRef: StandardDataType.Number,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -123,12 +123,12 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 5,
             dataTypeRef: StandardDataType.Number,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
             value: '4',
             dataTypeRef: StandardDataType.Number,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -151,12 +151,12 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 5,
             dataTypeRef: StandardDataType.Number,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
             value: '4',
             dataTypeRef: StandardDataType.Number,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -179,12 +179,12 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 5,
             dataTypeRef: StandardDataType.Number,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
             value: '4',
             dataTypeRef: StandardDataType.Number,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -207,13 +207,13 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: '3',
             dataTypeRef: StandardDataType.Number,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
 
             value: 4,
             dataTypeRef: StandardDataType.Number,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -238,12 +238,12 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 5.0,
             dataTypeRef: StandardDataType.Float,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
             value: '5',
             dataTypeRef: StandardDataType.Float,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -266,12 +266,12 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 5,
             dataTypeRef: StandardDataType.Float,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
             value: '6',
             dataTypeRef: StandardDataType.Float,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -294,12 +294,12 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 5,
             dataTypeRef: StandardDataType.Float,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
             value: '4',
             dataTypeRef: StandardDataType.Float,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -322,12 +322,12 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 5.0,
             dataTypeRef: StandardDataType.Float,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
             value: '4',
             dataTypeRef: StandardDataType.Float,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -350,12 +350,12 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 5,
             dataTypeRef: StandardDataType.Float,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
             value: '4.0',
             dataTypeRef: StandardDataType.Float,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -378,12 +378,12 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 5.0,
             dataTypeRef: StandardDataType.Float,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
             value: '4.0',
             dataTypeRef: StandardDataType.Float,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -406,13 +406,13 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: '3',
             dataTypeRef: StandardDataType.Float,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
 
             value: 4.0,
             dataTypeRef: StandardDataType.Float,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -437,13 +437,13 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 'abcdef',
             dataTypeRef: StandardDataType.Text,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
 
             value: 'abcdef',
             dataTypeRef: StandardDataType.Text,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -466,13 +466,13 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 'abcdef',
             dataTypeRef: StandardDataType.Text,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
 
             value: 'abcdefg',
             dataTypeRef: StandardDataType.Text,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -496,13 +496,13 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 'hello world',
             dataTypeRef: StandardDataType.Text,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
 
             value: '*ll*',
             dataTypeRef: StandardDataType.Text,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -526,13 +526,13 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: 'helo world',
             dataTypeRef: StandardDataType.Text,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
 
             value: '*ll*',
             dataTypeRef: StandardDataType.Text,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -557,13 +557,13 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: true,
             dataTypeRef: StandardDataType.Boolean,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
 
             value: 'true',
             dataTypeRef: StandardDataType.Boolean,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -586,13 +586,13 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: true,
             dataTypeRef: StandardDataType.Boolean,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
 
             value: 'false',
             dataTypeRef: StandardDataType.Boolean,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -615,13 +615,13 @@ describe('re-condition', () => {
           const lhs: ValueExpressionReference = {
             value: true,
             dataTypeRef: StandardDataType.Boolean,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const rhs: ValueExpressionReference = {
 
             value: 'false',
             dataTypeRef: StandardDataType.Boolean,
-            type: ExpressionType.Value
+            type: StandardExpressionType.Value
           };
           const conditionRef: ConditionReference = {
             lhsRef: lhs,
@@ -648,13 +648,13 @@ describe('re-condition', () => {
         const lhs: AttributeExpressionReference = {
           path: 'foo.bar',
           dataTypeRef: StandardDataType.Number,
-          type: ExpressionType.Attribute
+          type: StandardExpressionType.Attribute
         };
         const rhs: ValueExpressionReference = {
 
           value: '5',
           dataTypeRef: StandardDataType.Number,
-          type: ExpressionType.Value
+          type: StandardExpressionType.Value
         };
         const conditionRef: ConditionReference = {
           lhsRef: lhs,
@@ -697,12 +697,12 @@ describe('re-condition', () => {
                 const lhsRef: AttributeExpressionReference = {
                   path: 'foo.bar',
                   dataTypeRef: StandardDataType.Unknown,
-                  type: ExpressionType.Attribute
+                  type: StandardExpressionType.Attribute
                 };
                 const rhsRef: AttributeExpressionReference = {
                   path: 'foo1.bar1',
                   dataTypeRef: StandardDataType.Unknown,
-                  type: ExpressionType.Attribute
+                  type: StandardExpressionType.Attribute
                 };
                 const conditionRef: ConditionReference = {
                   lhsRef,
@@ -744,12 +744,12 @@ describe('re-condition', () => {
         const lhs = new AttributeExpression({
           path: 'foo.bar',
           dataTypeRef: {name: StandardDataType.Extended, name: 'BarEqualityComparator'},
-          type: ExpressionType.Attribute
+          type: StandardExpressionType.Attribute
         });
         const rhs: AttributeExpression = new AttributeExpression({
           path: 'foo1.bar1',
           dataTypeRef: {name: StandardDataType.Extended, name: 'BarEqualityComparator'},
-          type: ExpressionType.Attribute
+          type: StandardExpressionType.Attribute
         });
         const condition: Condition = new Condition({
           lhs,
@@ -781,12 +781,12 @@ describe('re-condition', () => {
         const lhs = new AttributeExpression({
           path: 'foo.bar',
           dataTypeRef: {name: StandardDataType.Extended, name: 'BarEqualityComparator'},
-          type: ExpressionType.Attribute
+          type: StandardExpressionType.Attribute
         });
         const rhs: AttributeExpression = new AttributeExpression({
           path: 'foo1.bar1',
           dataTypeRef: {name: StandardDataType.Extended, name: 'BarEqualityComparator'},
-          type: ExpressionType.Attribute
+          type: StandardExpressionType.Attribute
         });
         const condition: Condition = new Condition({
           lhs,
@@ -808,15 +808,15 @@ describe('re-condition', () => {
             const scope = new ConditionScope();
 
             const lhs: ValueExpressionReference = {
-              type: ExpressionType.Value,
+              type: StandardExpressionType.Value,
               dataTypeRef: StandardDataType.Text,
               value: 'hello world'
             };
             const rhs: SetExpressionReference = {
-              type: ExpressionType.Set,
+              type: StandardExpressionType.Set,
               dataTypeRef: StandardDataType.Text,
               set: [{
-                type: ExpressionType.Value,
+                type: StandardExpressionType.Value,
                 dataTypeRef: StandardDataType.Text,
                 value: 'hel*'
               } as ExpressionReference
@@ -843,12 +843,12 @@ describe('re-condition', () => {
             const lhs: ValueExpressionReference = {
               value: '3',
               dataTypeRef: StandardDataType.Number,
-              type: ExpressionType.Value
+              type: StandardExpressionType.Value
             };
             const rhs: ValueExpressionReference = {
               value: 4,
               dataTypeRef: StandardDataType.Number,
-              type: ExpressionType.Value
+              type: StandardExpressionType.Value
             };
             const conditionRef: ConditionReference = {
               lhsRef: lhs,
@@ -858,7 +858,7 @@ describe('re-condition', () => {
             const condition = new Condition(conditionRef, scope);
             const asReference = condition.to();
             asReference.comparatorRef.should.equal(StandardComparator.StandardLessThanOrEqual);
-            asReference.lhsRef.type.should.equal(ExpressionType.Value);
+            asReference.lhsRef.type.should.equal(StandardExpressionType.Value);
             done();
           });
         });

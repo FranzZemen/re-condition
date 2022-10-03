@@ -1,6 +1,6 @@
 import {ExecutionContextI} from '@franzzemen/app-utility';
 import {Scope} from '@franzzemen/re-common';
-import {ExpressionScope, ExpressionStackParser} from '@franzzemen/re-expression';
+import {ExpressionFactory, ExpressionScope, ExpressionStackParser} from '@franzzemen/re-expression';
 import {ComparatorFactory} from '../comparator/comparator-factory.js';
 import {DataTypeComparatorFactory} from '../comparator/data-type-comparator/data-type-comparator-factory.js';
 import {ConditionExpressionParser} from '../parser/condition-expression-parser.js';
@@ -12,6 +12,8 @@ export class ConditionScope extends ExpressionScope {
 
   constructor(options?: ConditionOptions, parentScope?: Scope, ec?:ExecutionContextI) {
     super(options, parentScope, ec);
+
+    const factory: ExpressionFactory = this.get(ExpressionScope.ExpressionFactory) as ExpressionFactory;
 
     this.set(ConditionScope.DataTypeComparatorFactory, new DataTypeComparatorFactory());
     this.set(ConditionScope.ComparatorFactory, new ComparatorFactory());

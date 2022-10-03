@@ -1,20 +1,24 @@
 import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
 import {StandardDataType} from '@franzzemen/re-data-type';
 import {
+  createExpressionType,
   Expression,
   ExpressionFactory,
   ExpressionReference,
-  ExpressionScope,
-  ExpressionType
+  ExpressionScope
 } from '@franzzemen/re-expression';
 import {ComparatorFactory} from '../comparator/comparator-factory.js';
 import {ComparatorI, StandardComparator} from '../comparator/comparator.js';
 import {ConditionScope} from '../scope/condition-scope.js';
 
-export function isConditionExpressionReference(ref: any | ConditionExpressionReference): ref is ConditionExpressionReference {
-  return 'lhsRef' in ref && 'rhsRef' in ref && 'comparatorRef' in ref && ref.type === ExpressionType.Condition;
+export enum ConditionExpressionType {
+  Condition = 'Condition'
 }
 
+
+export function isConditionExpressionReference(ref: any | ConditionExpressionReference): ref is ConditionExpressionReference {
+  return 'lhsRef' in ref && 'rhsRef' in ref && 'comparatorRef' in ref && ref.type === ConditionExpressionType.Condition;
+}
 
 export interface ConditionExpressionReference extends ExpressionReference {
   lhsRef: ExpressionReference;
@@ -26,6 +30,9 @@ export class ConditionExpression extends Expression {
   lhs: Expression;
   rhs: Expression;
   comparator: ComparatorI
+  static {
+    createExpressionType(ConditionExpressionType.Condition);
+  }
 
   constructor(ref: ConditionExpressionReference, scope: ConditionScope, ec: ExecutionContextI) {
     super(ref, scope, ec);
@@ -53,5 +60,4 @@ export class ConditionExpression extends Expression {
   to(ec?: ExecutionContextI): ExpressionReference {
     return undefined;
   }
-
 }

@@ -6,17 +6,16 @@ import {
   ExpressionParser,
   ExpressionReference,
   ExpressionScope,
-  ExpressionStackParser,
-  ExpressionType
+  ExpressionStackParser
 } from '@franzzemen/re-expression';
 import {ComparatorParser} from '../comparator/parser/comparator-parser.js';
-import {ConditionExpressionReference} from '../expression/condition-expression.js';
+import {ConditionExpressionReference, ConditionExpressionType} from '../expression/condition-expression.js';
 import {ConditionParser} from './condition-parser.js';
 
 
 export class ConditionExpressionParser extends ExpressionParser {
   constructor() {
-    super(ExpressionType.Condition);
+    super(ConditionExpressionType.Condition);
   }
 
   parse(remaining: string, scope: ExpressionScope, hints: Hints, ec?: ExecutionContextI): [string, ConditionExpressionReference, ParserMessages] {
@@ -25,7 +24,7 @@ export class ConditionExpressionParser extends ExpressionParser {
     const comparatorParser = new ComparatorParser(); // TODO add to Scope
     const near = remaining;
     let type: string = hints.get(ExpressionHintKey.Type) as string;
-    if (type && type !== ExpressionType.Condition) {
+    if (type && type !== ConditionExpressionType.Condition) {
       return [remaining, undefined, undefined];
     }
     let dataTypeRef = hints.get(ExpressionHintKey.DataType) as string;
@@ -50,7 +49,7 @@ export class ConditionExpressionParser extends ExpressionParser {
     if (result) {
       standardFormat = true;
       remaining = result[1];
-      type = ExpressionType.Condition;
+      type = ConditionExpressionType.Condition;
     } else {
       // If the standard format was not used, a type hint was necessary
       if (!type) {

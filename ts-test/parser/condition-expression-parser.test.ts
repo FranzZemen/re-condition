@@ -1,9 +1,9 @@
 import 'mocha';
 import {Hints} from '@franzzemen/app-utility';
 import {StandardDataType} from '@franzzemen/re-data-type';
-import {ExpressionType, isAttributeExpressionReference, isValueExpressionReference} from '@franzzemen/re-expression';
+import {StandardExpressionType, isAttributeExpressionReference, isValueExpressionReference} from '@franzzemen/re-expression';
 import chai from 'chai';
-import {ConditionExpressionParser, ConditionScope, StandardComparator} from '../../publish/index.js';
+import {ConditionExpressionParser, ConditionScope, StandardComparator, ConditionExpressionType} from '../../publish/index.js';
 
 
 const expect = chai.expect;
@@ -33,7 +33,7 @@ describe('re-condition', () => {
         let [remaining, ref] = parser.parse(textFormat, scope, hints);
         remaining.should.equal('');
         expect(ref).to.exist;
-        ref.type.should.equal(ExpressionType.Condition);
+        ref.type.should.equal(ConditionExpressionType.Condition);
         ref.dataTypeRef.should.equal(StandardDataType.Boolean);
         if (isValueExpressionReference(ref.lhsRef)) {
           ref.lhsRef.value.should.equal(5);
@@ -53,7 +53,7 @@ describe('re-condition', () => {
         let [remaining, ref] = parser.parse(textFormat, scope, (new Hints('')).loadAndResolve('') as Hints);
         remaining.should.equal('');
         expect(ref).to.exist;
-        ref.type.should.equal(ExpressionType.Condition);
+        ref.type.should.equal(ConditionExpressionType.Condition);
         ref.dataTypeRef.should.equal(StandardDataType.Boolean);
         if (isAttributeExpressionReference(ref.lhsRef)) {
           ref.lhsRef.path.should.equal('price');

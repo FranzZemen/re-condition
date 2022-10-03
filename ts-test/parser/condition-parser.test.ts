@@ -1,6 +1,6 @@
 import 'mocha';
 import {StandardDataType} from '@franzzemen/re-data-type';
-import {ExpressionType, isAttributeExpressionReference, isValueExpressionReference} from '@franzzemen/re-expression';
+import {StandardExpressionType, isAttributeExpressionReference, isValueExpressionReference} from '@franzzemen/re-expression';
 import chai from 'chai';
 import {ConditionParser, ConditionScope, StandardComparator} from '../../publish/index.js';
 
@@ -19,7 +19,7 @@ describe('Rules Engine Tests', ()=> {
       it('should parse simplest value condition 5 > 6', done => {
         const [remaining, conditionRef] = parser.parse('5 > 6', scope);
         remaining.length.should.equal(0);
-        conditionRef.lhsRef.type.should.equal(ExpressionType.Value);
+        conditionRef.lhsRef.type.should.equal(StandardExpressionType.Value);
         conditionRef.lhsRef.dataTypeRef.should.equal(StandardDataType.Number);
         if(isValueExpressionReference(conditionRef.lhsRef)) {
           conditionRef.lhsRef.value.should.equal(5);
@@ -37,7 +37,7 @@ describe('Rules Engine Tests', ()=> {
       it('should parse fully hinted condition "<<ex type=Attribute data-type=Number>> path.to.something[5] > <<ex type=Value 6 data-type=Number>>"', done => {
         const [remaining, conditionRef] = parser.parse('<<ex type=Attribute data-type=Number>> path.to.something[5] > <<ex type=Value data-type=Number>> 6', scope);
         remaining.length.should.equal(0);
-        conditionRef.lhsRef.type.should.equal(ExpressionType.Attribute);
+        conditionRef.lhsRef.type.should.equal(StandardExpressionType.Attribute);
         conditionRef.lhsRef.dataTypeRef.should.equal(StandardDataType.Number);
         if(isAttributeExpressionReference(conditionRef.lhsRef)) {
           conditionRef.lhsRef.path.should.equal('path.to.something[5]');
@@ -54,7 +54,7 @@ describe('Rules Engine Tests', ()=> {
       })
       it('parse "Hello" = world', done => {
         const [remaining, result] = parser.parse('"Hello" = world', scope);
-        result.rhsRef.type.should.equal(ExpressionType.Attribute);
+        result.rhsRef.type.should.equal(StandardExpressionType.Attribute);
         done();
       })
     });
