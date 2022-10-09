@@ -4,6 +4,6 @@ export interface ConditionOptions extends ExpressionOptions {
 
 }
 
-export function _mergeConditionOptions(target: ConditionOptions, source: ConditionOptions, mergeInto = true): ConditionOptions {
+export function _mergeConditionOptions(target: ConditionOptions, source: ConditionOptions, mergeInto = false): ConditionOptions {
   return _mergeExpressionOptions(target, source, mergeInto);
 }
