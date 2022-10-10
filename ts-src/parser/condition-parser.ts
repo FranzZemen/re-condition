@@ -2,6 +2,7 @@ import {ExecutionContextI} from '@franzzemen/app-utility';
 import {FragmentParser, ParserMessages, PsMsgType} from '@franzzemen/re-common';
 import {StandardDataType} from '@franzzemen/re-data-type';
 import {ExpressionReference, ExpressionScope, ExpressionStackParser, ExPsStdMsg} from '@franzzemen/re-expression';
+import {StandardComparator} from '../comparator/comparator.js';
 import {ComparatorParser} from '../comparator/parser/comparator-parser.js';
 import {ConditionReference} from '../condition-reference.js';
 import {ConditionScope} from '../scope/condition-scope.js';
@@ -14,10 +15,14 @@ export class ConditionParser extends FragmentParser<ConditionReference>{
 
   parse(remaining: string, scope:ConditionScope, ec?: ExecutionContextI) : [string, ConditionReference, ParserMessages] {
     // const log = new LoggerAdapter(ec, 're-condition', 'condition-parser', `${ConditionParser.name}.parse`);
-    let conditionRef: Partial<ConditionReference> = {};
+    let lhsRef: ExpressionReference, rhsRef: ExpressionReference, comparatorRef: StandardComparator | string;
     let messages: ParserMessages;
-    [remaining, conditionRef.lhsRef, conditionRef.comparatorRef, conditionRef.rhsRef, messages] = ConditionParser.parseComparativeCondition(remaining, scope, ec);
-    return [remaining, conditionRef as ConditionReference, messages];
+    [remaining, lhsRef, comparatorRef, rhsRef, messages] = ConditionParser.parseComparativeCondition(remaining, scope, ec);
+    if(lhsRef === undefined || rhsRef === undefined || comparatorRef === undefined) {
+      return [remaining, undefined, messages];
+    } else {
+      return [remaining, {lhsRef, comparatorRef, rhsRef}, messages];
+    }
   }
 
   static parseComparativeCondition(remaining: string, scope: ConditionScope, ec?: ExecutionContextI): [string, ExpressionReference, string, ExpressionReference, ParserMessages]{
