@@ -1,5 +1,5 @@
 import {ExecutionContextI, Hints} from '@franzzemen/app-utility';
-import {ParserMessages, PsMsgType} from '@franzzemen/re-common';
+import {ParserMessages, ParserMessageType} from '@franzzemen/re-common';
 import {StandardDataType} from '@franzzemen/re-data-type';
 import {
   ExpressionHintKey,
@@ -33,7 +33,7 @@ export class ConditionExpressionParser extends ExpressionParser {
         if (type) {
           return [remaining, undefined, [{
             message: 'Data type must be Boolean for a Condition Expression',
-            type: PsMsgType.Error
+            type: ParserMessageType.Error
           }]];
         } else {
           return [remaining, undefined, undefined];

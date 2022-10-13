@@ -1,7 +1,12 @@
 import {ExecutionContextI} from '@franzzemen/app-utility';
-import {FragmentParser, ParserMessages, PsMsgType} from '@franzzemen/re-common';
+import {FragmentParser, ParserMessages, ParserMessageType} from '@franzzemen/re-common';
 import {StandardDataType} from '@franzzemen/re-data-type';
-import {ExpressionReference, ExpressionScope, ExpressionStackParser, ExPsStdMsg} from '@franzzemen/re-expression';
+import {
+  ExpressionReference,
+  ExpressionScope,
+  ExpressionStackParser,
+  ExpressionStandardParserMessages
+} from '@franzzemen/re-expression';
 import {StandardComparator} from '../comparator/comparator.js';
 import {ComparatorParser} from '../comparator/parser/comparator-parser.js';
 import {ConditionReference} from '../condition-reference.js';
@@ -57,7 +62,7 @@ export class ConditionParser extends FragmentParser<ConditionReference>{
       // Reprocess comparator, discarding string result. It may or may not be the same comparatorRef
       [candidateRemaining,comparatorRef] = comparatorParser.parse(candidateRemaining, rhsRef.dataTypeRef, scope, ec);
       if(!comparatorRef) {
-        return [near, undefined, undefined, undefined, [{message: `No comparator to parse near ${candidateRemaining}`, contextObject: {lhsRef, rhsRef}, type: PsMsgType.Info}]];
+        return [near, undefined, undefined, undefined, [{message: `No comparator to parse near ${candidateRemaining}`, contextObject: {lhsRef, rhsRef}, type: ParserMessageType.Info}]];
       }
       lhsRef.dataTypeRef = rhsRef.dataTypeRef;
     } else if (rhsRef.dataTypeRef === StandardDataType.Indeterminate && lhsRef.dataTypeRef !== StandardDataType.Indeterminate) {
@@ -67,7 +72,7 @@ export class ConditionParser extends FragmentParser<ConditionReference>{
         lhsRef.dataTypeRef = StandardDataType.Unknown;
         rhsRef.dataTypeRef = StandardDataType.Unknown;
       } else {
-        return [near, undefined, undefined, undefined, [{message: `${ExPsStdMsg.ImproperUsageOfUnknown} and both lhs and rhs are indeterminate near ${near}`, contextObject: {lhsRef, rhsRef}, type: PsMsgType.Error}]];
+        return [near, undefined, undefined, undefined, [{message: `${ExpressionStandardParserMessages.ImproperUsageOfUnknown} and both lhs and rhs are indeterminate near ${near}`, contextObject: {lhsRef, rhsRef}, type: ParserMessageType.Error}]];
       }
     }
     return [remaining, lhsRef, comparatorRef, rhsRef, undefined];

@@ -2,7 +2,12 @@ import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
 import {logErrorAndThrow} from '@franzzemen/app-utility/enhanced-error.js';
 import {isPromise} from 'node:util/types';
 import {StandardDataType} from '@franzzemen/re-data-type';
-import {Expression, ExpressionFactory, ExpressionScope, ExPsStdMsg} from '@franzzemen/re-expression';
+import {
+  Expression,
+  ExpressionFactory,
+  ExpressionScope,
+  ExpressionStandardParserMessages
+} from '@franzzemen/re-expression';
 import {ComparatorI} from './comparator/comparator.js';
 import {ComparatorFactory} from './comparator/comparator-factory.js';
 
@@ -61,10 +66,10 @@ export class Condition implements ConditionI {
     const rhsUnknown = rhsDataTypeRef === StandardDataType.Unknown;
 
     if(lhsUnknown && scope.get(ConditionScope.AllowUnknownDataType) === false) {
-      logErrorAndThrow(`${ExPsStdMsg.ImproperUsageOfUnknown} for condition lhs`, log, ec);
+      logErrorAndThrow(`${ExpressionStandardParserMessages.ImproperUsageOfUnknown} for condition lhs`, log, ec);
     }
     if(rhsUnknown && scope.get(ConditionScope.AllowUnknownDataType) === false) {
-      logErrorAndThrow(`${ExPsStdMsg.ImproperUsageOfUnknown} for condition rhs`, log, ec);
+      logErrorAndThrow(`${ExpressionStandardParserMessages.ImproperUsageOfUnknown} for condition rhs`, log, ec);
     }
     if(!lhsUnknown && !rhsUnknown && lhsDataTypeRef !== rhsDataTypeRef) {
       // TODO: Option to attempt implicit conversion

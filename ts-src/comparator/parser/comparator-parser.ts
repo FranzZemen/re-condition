@@ -1,5 +1,5 @@
 import {ExecutionContextI} from '@franzzemen/app-utility';
-import {ParserMessages, PsMsgType} from '@franzzemen/re-common';
+import {ParserMessages, ParserMessageType} from '@franzzemen/re-common';
 import {StandardDataType} from '@franzzemen/re-data-type';
 import {ConditionScope} from '../../scope/condition-scope.js';
 import {ComparatorI} from '../comparator.js';
@@ -33,7 +33,7 @@ export class ComparatorParser {
     } else {
       const dataTypeComparatorRef: DataTypeComparatorRef = dataTypeComparatorsFactory.getRegistered(dataTypeRef);
       if (!dataTypeComparatorRef?.comparators?.length) {
-        return [near, undefined, [{message: `No comparators for data type ${dataTypeRef} near '${near}'`, type: PsMsgType.Error}]];
+        return [near, undefined, [{message: `No comparators for data type ${dataTypeRef} near '${near}'`, type: ParserMessageType.Error}]];
       }
       return ComparatorParser._determineComparator(remaining,dataTypeComparatorRef, scope, ec);
     }
