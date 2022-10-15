@@ -23,7 +23,7 @@ export interface ConditionI {
 
   to(ec?: ExecutionContextI): ConditionReference;
 
-  awaitValidation(item: any, scope: Map<string, any>, ec?: ExecutionContextI): boolean | Promise<boolean>;
+  awaitEvaluation(item: any, scope: Map<string, any>, ec?: ExecutionContextI): boolean | Promise<boolean>;
 }
 
 export function isCondition(condition: ConditionReference | ConditionI): condition is ConditionI {
@@ -58,7 +58,7 @@ export class Condition implements ConditionI {
     return {lhsRef: this.lhs.to(ec), comparatorRef: this.comparator.refName, rhsRef: this.rhs.to(ec)};
   }
 
-  awaitValidation(item: any, scope: ConditionScope, ec?: ExecutionContextI): boolean | Promise<boolean> {
+  awaitEvaluation(item: any, scope: ConditionScope, ec?: ExecutionContextI): boolean | Promise<boolean> {
     const log = new LoggerAdapter(ec, 're-condition', 'condition', 'awaitValidation');
     const lhsDataTypeRef = this.lhs.dataType.refName;
     const rhsDataTypeRef = this.rhs.dataType.refName;

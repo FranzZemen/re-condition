@@ -1,6 +1,6 @@
 {
   "name": "@franzzemen/re-condition",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "description": "Rules Engine Conditions",
   "type": "module",
   "main": "index.js",
@@ -33,9 +33,9 @@
   },
   "dependencies": {
     "@franzzemen/app-utility": "5.1.11",
-    "@franzzemen/re-common": "10.0.2",
-    "@franzzemen/re-data-type": "9.0.2",
-    "@franzzemen/re-expression": "4.1.4",
+    "@franzzemen/re-common": "10.0.3",
+    "@franzzemen/re-data-type": "9.0.3",
+    "@franzzemen/re-expression": "4.1.5",
     "fastest-validator": "^1.15.0",
     "moment": "^2.29.4",
     "object-path": "^0.11.8",

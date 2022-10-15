@@ -50,7 +50,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardEquality
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -79,7 +79,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardInequality
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -108,7 +108,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardEquality
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -136,7 +136,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardGreaterThan
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -164,7 +164,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardGreaterThanOrEqual
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -192,7 +192,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardLessThan
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -221,7 +221,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardLessThanOrEqual
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -251,7 +251,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardEquality
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -279,7 +279,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardInequality
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -307,7 +307,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardEquality
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -335,7 +335,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardGreaterThan
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -363,7 +363,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardGreaterThanOrEqual
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -391,7 +391,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardLessThan
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -420,7 +420,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardLessThanOrEqual
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -451,7 +451,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardEquality
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -480,7 +480,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardInequality
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -510,7 +510,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardLike
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -540,7 +540,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardLike
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -571,7 +571,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardEquality
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -600,7 +600,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardEquality
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -629,7 +629,7 @@ describe('re-condition', () => {
             comparatorRef: StandardComparator.StandardInequality
           };
           const condition = new Condition(conditionRef, scope);
-          const result = condition.awaitValidation({}, scope);
+          const result = condition.awaitEvaluation({}, scope);
           if (isPromise(result)) {
             unreachableCode.should.be.true;
             done();
@@ -662,7 +662,7 @@ describe('re-condition', () => {
           comparatorRef: StandardComparator.StandardGreaterThan
         };
         const condition = new Condition(conditionRef, scope);
-        const result = condition.awaitValidation({foo: {bar: 6}}, scope);
+        const result = condition.awaitEvaluation({foo: {bar: 6}}, scope);
         if (isPromise(result)) {
           unreachableCode.should.be.true;
           done();
@@ -710,7 +710,7 @@ describe('re-condition', () => {
                   comparatorRef: 'FooBarEqualityComparator'
                 };
                 const condition = new Condition(conditionRef, new ConditionScope());
-                const result = condition.awaitValidation({
+                const result = condition.awaitEvaluation({
                   foo: {bar: {fooValue: 1234}},
                   foo1: {bar1: {fooValue: 1234}}
                 }, scope);
@@ -828,7 +828,7 @@ describe('re-condition', () => {
               comparatorRef: StandardComparator.StandardLike
             };
             const condition = new Condition(conditionRef, scope);
-            const result = condition.awaitValidation({}, scope);
+            const result = condition.awaitEvaluation({}, scope);
             if (isPromise(result)) {
               unreachableCode.should.be.true;
             } else {

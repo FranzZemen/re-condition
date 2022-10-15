@@ -1,5 +1,5 @@
 import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
-import {CliFunction, defaultCliFactory, execute, logParserMessages} from '@franzzemen/re-common/cli-common.js';
+import {CliFunction, defaultCliFactory, execute, logParserMessages, Scope} from '@franzzemen/re-common';
 import {isPromise} from 'node:util/types';
 import {Condition} from './condition.js';
 import {ConditionParser} from './parser/condition-parser.js';
@@ -28,6 +28,12 @@ export const executeConditionCLI: CliFunction<ConditionCliFormat> = (iteration: 
       const scope: ConditionScope = new ConditionScope({}, undefined, ec);
       const parser: ConditionParser = scope.get(ConditionScope.ConditionParser);
       let [remaining, ref, parserMessages] = parser.parse(iteration.text, scope, ec);
+      if(!scope.isResolved()) {
+        const truVal = Scope.resolve(scope,ec);
+        if(isPromise(truVal)) {
+          throw new Error('Asyc not yet supported in cli');
+        }
+      }
       logParserMessages(parserMessages, ec);
       if(log.isInfoEnabled()) {
         if (ref) {
@@ -45,7 +51,7 @@ export const executeConditionCLI: CliFunction<ConditionCliFormat> = (iteration: 
         log.info('Processing data stream')
       }
       iteration.dataStream.forEach(streamItem => {
-        const truOrPromise = condition.awaitValidation(streamItem.data, scope, ec);
+        const truOrPromise = condition.awaitEvaluation(streamItem.data, scope, ec);
         if(isPromise(truOrPromise)) {
           throw new Error('Promises not yet implemented for Cli');
         } else {
