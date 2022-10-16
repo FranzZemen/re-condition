@@ -1,6 +1,6 @@
 {
   "name": "@franzzemen/re-condition",
-  "version": "0.0.33",
+  "version": "0.0.34",
   "description": "Rules Engine Conditions",
   "type": "module",
   "main": "index.js",
