@@ -5,8 +5,8 @@ License Type:
 import {AppExecutionContextDefaults, appSchemaWrapper} from '@franzzemen/app-execution-context';
 import {ExecutionContextDefaults, executionSchemaWrapper} from '@franzzemen/execution-context';
 import {LogExecutionContextDefaults, logSchemaWrapper} from '@franzzemen/logger-adapter';
-import {reCommonSchemaWrapper} from '@franzzemen/re-common';
-import {reDataTypeSchemaWrapper} from '@franzzemen/re-data-type';
+import {commonOptionsSchemaWrapper} from '@franzzemen/re-common';
+import {dataTypeOptionsSchemaWrapper} from '@franzzemen/re-data-type';
 import {ExpressionExecutionContext, expressionOptionsSchemaWrapper, ReExpression} from '@franzzemen/re-expression';
 import Validator, {ValidationError} from 'fastest-validator';
 import {isPromise} from 'util/types';
@@ -49,8 +49,8 @@ export const conditionOptionsSchemaWrapper = {
 };
 
 const reConditionSchema = {
-  common: reCommonSchemaWrapper,
-  data: reDataTypeSchemaWrapper,
+  common: commonOptionsSchemaWrapper,
+  data: dataTypeOptionsSchemaWrapper,
   expression: expressionOptionsSchemaWrapper,
   condition: conditionOptionsSchemaWrapper,
 };
