@@ -25,7 +25,6 @@ export interface ConditionExecutionContext extends ExpressionExecutionContext {
 export class ConditionExecutionContextDefaults {
   static AllowUnknownDataType = false;
   static ConditionOptions: ConditionOptions = {
-    allowUnknownDataType: ConditionExecutionContextDefaults.AllowUnknownDataType
   }
   static ReCondition: ReCondition = {
     condition: ConditionExecutionContextDefaults.ConditionOptions
