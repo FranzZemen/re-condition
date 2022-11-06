@@ -1,4 +1,5 @@
-import {ExecutionContextI, Hints} from '@franzzemen/app-utility';
+import {Hints} from '@franzzemen/hints';
+import {LogExecutionContext} from '@franzzemen/logger-adapter';
 import {ParserMessages, ParserMessageType} from '@franzzemen/re-common';
 import {StandardDataType} from '@franzzemen/re-data-type';
 import {
@@ -18,7 +19,7 @@ export class ConditionExpressionParser extends ExpressionParser {
     super(ConditionExpressionType.Condition);
   }
 
-  parse(remaining: string, scope: ExpressionScope, hints: Hints, ec?: ExecutionContextI): [string, ConditionExpressionReference, ParserMessages] {
+  parse(remaining: string, scope: ExpressionScope, hints: Hints, ec?: LogExecutionContext): [string, ConditionExpressionReference, ParserMessages] {
     // const log = new LoggerAdapter(ec, 'rules-engine', 'condition-expression-parser', `${ConditionExpressionParser.name}.parse`);
     const expressionStackParser: ExpressionStackParser = scope.get(ExpressionScope.ExpressionStackParser);
     const comparatorParser = new ComparatorParser(); // TODO add to Scope

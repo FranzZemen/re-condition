@@ -1,5 +1,5 @@
-import {ExecutionContextI, reverseEnumerationToSet} from '@franzzemen/app-utility';
-import {isEnumeratedType} from '@franzzemen/app-utility';
+import {LogExecutionContext} from '@franzzemen/logger-adapter';
+import {isEnumeratedType, reverseEnumerationToSet} from '@franzzemen/re-common';
 
 export enum StandardComparator {
   StandardEquality = '=',
@@ -39,11 +39,11 @@ export interface ComparatorI {
   lhsMultiVariate?: boolean;
   rhsMultiVariate?: boolean;
   twoSidedMultiVariate?: boolean;
-  compare(lhs:any , rhs:any, ec?: ExecutionContextI): boolean;
+  compare(lhs:any , rhs:any, ec?: LogExecutionContext): boolean;
 }
 
 export abstract class Comparator implements ComparatorI {
-  abstract compare(lhs:any , rhs:any, ec?: ExecutionContextI): boolean;
+  abstract compare(lhs:any , rhs:any, ec?: LogExecutionContext): boolean;
   constructor(public refName: string, public lhsMultiVariate = false, public rhsMultivariate = false, twoSidedMultivariate = false, public synonyms: string[] = []) {
   }
 }

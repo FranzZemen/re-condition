@@ -1,5 +1,5 @@
 import 'mocha';
-import {Hints} from '@franzzemen/app-utility';
+import {Hints} from '@franzzemen/hints';
 import {StandardDataType} from '@franzzemen/re-data-type';
 import {StandardExpressionType, isAttributeExpressionReference, isValueExpressionReference} from '@franzzemen/re-expression';
 import chai from 'chai';

@@ -1,4 +1,4 @@
-import {ExecutionContextI} from '@franzzemen/app-utility';
+import {LogExecutionContext} from '@franzzemen/logger-adapter';
 import {ParserMessages, ParserMessageType} from '@franzzemen/re-common';
 import {StandardDataType} from '@franzzemen/re-data-type';
 import {ConditionScope} from '../../scope/condition-scope.js';
@@ -12,7 +12,7 @@ export class ComparatorParser {
   constructor() {
   }
 
-  parse(remaining: string, dataTypeRef: string, scope: ConditionScope, ec?: ExecutionContextI): [string, string, ParserMessages] {
+  parse(remaining: string, dataTypeRef: string, scope: ConditionScope, ec?: LogExecutionContext): [string, string, ParserMessages] {
     // const log = new LoggerAdapter(ec, 're-condition', 'comparator-parser', ComparatorParser.name + '.parse');
     const near = remaining;
     let messages: ParserMessages;
@@ -40,7 +40,7 @@ export class ComparatorParser {
     return [near, undefined, undefined];
   }
 
-  private static _determineComparator(remaining: string, dataTypeComparatorRef: DataTypeComparatorRef, scope: ConditionScope, ec?: ExecutionContextI): [string, string, ParserMessages] {
+  private static _determineComparator(remaining: string, dataTypeComparatorRef: DataTypeComparatorRef, scope: ConditionScope, ec?: LogExecutionContext): [string, string, ParserMessages] {
     for (let i = 0; i < dataTypeComparatorRef.comparators.length; i++) {
       let matched = false;
       const currComparatorRef = dataTypeComparatorRef.comparators[i];

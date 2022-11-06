@@ -1,4 +1,4 @@
-import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
+import {LogExecutionContext, LoggerAdapter} from '@franzzemen/logger-adapter';
 import {StandardDataType} from '@franzzemen/re-data-type';
 import {
   createExpressionType,
@@ -34,7 +34,7 @@ export class ConditionExpression extends Expression {
     createExpressionType(ConditionExpressionType.Condition);
   }
 
-  constructor(ref: ConditionExpressionReference, scope: ConditionScope, ec: ExecutionContextI) {
+  constructor(ref: ConditionExpressionReference, scope: ConditionScope, ec: LogExecutionContext) {
     super(ref, scope, ec);
     if(ref.lhsRef.dataTypeRef !== StandardDataType.Unknown && ref.rhsRef.dataTypeRef !== StandardDataType.Unknown) {
       if (ref.lhsRef.dataTypeRef !== ref.rhsRef.dataTypeRef) {
@@ -54,10 +54,10 @@ export class ConditionExpression extends Expression {
     }
   }
 
-  awaitEvaluation(dataDomain: any, scope: Map<string, any>, ec?: ExecutionContextI): any {
+  awaitEvaluation(dataDomain: any, scope: Map<string, any>, ec?: LogExecutionContext): any {
   }
 
-  to(ec?: ExecutionContextI): ExpressionReference {
+  to(ec?: LogExecutionContext): ExpressionReference {
     return undefined;
   }
 }

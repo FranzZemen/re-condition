@@ -1,4 +1,4 @@
-import {Comparator, StandardComparator, StandardComparatorSynonyms} from '../comparator.js';
+import {Comparator, StandardComparator} from '../comparator.js';
 
 
 export class StandardGreaterThanComparator extends Comparator {

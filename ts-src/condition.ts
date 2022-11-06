@@ -1,5 +1,5 @@
-import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
-import {logErrorAndThrow} from '@franzzemen/app-utility/enhanced-error.js';
+import {logErrorAndThrow} from '@franzzemen/enhanced-error';
+import {LogExecutionContext, LoggerAdapter} from '@franzzemen/logger-adapter';
 import {isPromise} from 'node:util/types';
 import {StandardDataType} from '@franzzemen/re-data-type';
 import {
@@ -21,9 +21,9 @@ export interface ConditionI {
   lhs: Expression;
   rhs: Expression;
 
-  to(ec?: ExecutionContextI): ConditionReference;
+  to(ec?: LogExecutionContext): ConditionReference;
 
-  awaitEvaluation(item: any, scope: Map<string, any>, ec?: ExecutionContextI): boolean | Promise<boolean>;
+  awaitEvaluation(item: any, scope: Map<string, any>, ec?: LogExecutionContext): boolean | Promise<boolean>;
 }
 
 export function isCondition(condition: ConditionReference | ConditionI): condition is ConditionI {
@@ -35,7 +35,7 @@ export class Condition implements ConditionI {
   comparator: ComparatorI;
   rhs: Expression;
 
-  constructor(ref: ConditionReference, scope: ConditionScope, ec?: ExecutionContextI) {
+  constructor(ref: ConditionReference, scope: ConditionScope, ec?: LogExecutionContext) {
     if(ref.lhsRef.dataTypeRef !== StandardDataType.Unknown && ref.rhsRef.dataTypeRef !== StandardDataType.Unknown) {
       if (ref.lhsRef.dataTypeRef !== ref.rhsRef.dataTypeRef) {
         throw new Error('Inconsistent condition lhs, rhs data types');
@@ -54,11 +54,11 @@ export class Condition implements ConditionI {
     }
   }
 
-  to(ec?: ExecutionContextI): ConditionReference {
+  to(ec?: LogExecutionContext): ConditionReference {
     return {lhsRef: this.lhs.to(ec), comparatorRef: this.comparator.refName, rhsRef: this.rhs.to(ec)};
   }
 
-  awaitEvaluation(item: any, scope: ConditionScope, ec?: ExecutionContextI): boolean | Promise<boolean> {
+  awaitEvaluation(item: any, scope: ConditionScope, ec?: LogExecutionContext): boolean | Promise<boolean> {
     const log = new LoggerAdapter(ec, 're-condition', 'condition', 'awaitValidation');
     const lhsDataTypeRef = this.lhs.dataType.refName;
     const rhsDataTypeRef = this.rhs.dataType.refName;
@@ -66,10 +66,10 @@ export class Condition implements ConditionI {
     const rhsUnknown = rhsDataTypeRef === StandardDataType.Unknown;
 
     if(lhsUnknown && scope.get(ConditionScope.AllowUnknownDataType) === false) {
-      logErrorAndThrow(`${ExpressionStandardParserMessages.ImproperUsageOfUnknown} for condition lhs`, log, ec);
+      logErrorAndThrow(`${ExpressionStandardParserMessages.ImproperUsageOfUnknown} for condition lhs`, log);
     }
     if(rhsUnknown && scope.get(ConditionScope.AllowUnknownDataType) === false) {
-      logErrorAndThrow(`${ExpressionStandardParserMessages.ImproperUsageOfUnknown} for condition rhs`, log, ec);
+      logErrorAndThrow(`${ExpressionStandardParserMessages.ImproperUsageOfUnknown} for condition rhs`, log);
     }
     if(!lhsUnknown && !rhsUnknown && lhsDataTypeRef !== rhsDataTypeRef) {
       // TODO: Option to attempt implicit conversion
@@ -77,7 +77,7 @@ export class Condition implements ConditionI {
       return false;
     }
     if (!this.comparator) {
-      logErrorAndThrow('No comparator', log, ec);
+      logErrorAndThrow('No comparator', log);
     }
     const lhsEvaluation = this.lhs.awaitEvaluation(item, scope, ec);
     const rhsEvaluation = this.rhs.awaitEvaluation(item, scope, ec);

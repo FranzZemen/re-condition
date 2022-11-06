@@ -1,4 +1,4 @@
-import {ExecutionContextI, LoggerAdapter} from '@franzzemen/app-utility';
+import {LogExecutionContext, LoggerAdapter} from '@franzzemen/logger-adapter';
 import {Comparator, StandardComparator} from '../comparator.js';
 
 function escapeRegex(string): string {
@@ -10,7 +10,7 @@ export class StandardLikeComparator extends Comparator {
     super(symbol, true, true, false, ['like']);
   }
 
-  static compareTextToWildcardText(testString: string, wildCardString: string, ec?: ExecutionContextI): boolean {
+  static compareTextToWildcardText(testString: string, wildCardString: string, ec?: LogExecutionContext): boolean {
     try {
       let likeString = escapeRegex(wildCardString.trim());
       likeString = likeString.replace(/\\\*/g, '.*');
@@ -22,7 +22,7 @@ export class StandardLikeComparator extends Comparator {
     }
   }
 
-  static compareTextToWildcardArray(text: string, wildcards: string [], ec?: ExecutionContextI): boolean {
+  static compareTextToWildcardArray(text: string, wildcards: string [], ec?: LogExecutionContext): boolean {
 
     for (let i = 0; i < wildcards.length; i++) {
       const wildcard = wildcards[i];
@@ -35,7 +35,7 @@ export class StandardLikeComparator extends Comparator {
     return false;
   }
 
-  static compareTextArrayToWildcardText(textArray: string [], wildCardString: string, ec?: ExecutionContextI): boolean {
+  static compareTextArrayToWildcardText(textArray: string [], wildCardString: string, ec?: LogExecutionContext): boolean {
     for(let i = 0; i < textArray.length; i++) {
       const text = textArray[i];
       const match = StandardLikeComparator.compareTextToWildcardText(text, wildCardString, ec);
@@ -46,7 +46,7 @@ export class StandardLikeComparator extends Comparator {
     return false;
   }
 
-  compare(lhs: any, rhs: any, ec?: ExecutionContextI): boolean {
+  compare(lhs: any, rhs: any, ec?: LogExecutionContext): boolean {
     if (lhs === undefined || rhs === undefined) {
       return false;
     }

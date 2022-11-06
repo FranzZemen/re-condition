@@ -1,4 +1,4 @@
-import {ExecutionContextI} from '@franzzemen/app-utility';
+import {LogExecutionContext} from '@franzzemen/logger-adapter';
 import {FragmentParser, ParserMessages, ParserMessageType} from '@franzzemen/re-common';
 import {StandardDataType} from '@franzzemen/re-data-type';
 import {
@@ -18,7 +18,7 @@ export class ConditionParser extends FragmentParser<ConditionReference>{
     super();
   }
 
-  parse(remaining: string, scope:ConditionScope, ec?: ExecutionContextI) : [string, ConditionReference, ParserMessages] {
+  parse(remaining: string, scope:ConditionScope, ec?: LogExecutionContext) : [string, ConditionReference, ParserMessages] {
     // const log = new LoggerAdapter(ec, 're-condition', 'condition-parser', `${ConditionParser.name}.parse`);
     let lhsRef: ExpressionReference, rhsRef: ExpressionReference, comparatorRef: StandardComparator | string;
     let messages: ParserMessages;
@@ -30,7 +30,7 @@ export class ConditionParser extends FragmentParser<ConditionReference>{
     }
   }
 
-  static parseComparativeCondition(remaining: string, scope: ConditionScope, ec?: ExecutionContextI): [string, ExpressionReference, string, ExpressionReference, ParserMessages]{
+  static parseComparativeCondition(remaining: string, scope: ConditionScope, ec?: LogExecutionContext): [string, ExpressionReference, string, ExpressionReference, ParserMessages]{
     // const log = new LoggerAdapter(ec, 're-condition', 'condition-parser', `parseComparativeCondition`);
     const near = remaining;
     const expressionStackParser: ExpressionStackParser = scope.get(ExpressionScope.ExpressionStackParser);
