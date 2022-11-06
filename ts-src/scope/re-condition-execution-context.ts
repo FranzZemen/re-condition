@@ -23,7 +23,6 @@ export interface ConditionExecutionContext extends ExpressionExecutionContext {
 }
 
 export class ConditionExecutionContextDefaults {
-  static AllowUnknownDataType = false;
   static ConditionOptions: ConditionOptions = {
   }
   static ReCondition: ReCondition = {
