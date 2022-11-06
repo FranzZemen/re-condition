@@ -1,6 +1,6 @@
 {
   "name": "@franzzemen/re-condition",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Rules Engine Conditions",
   "type": "module",
   "main": "index.js",
@@ -36,7 +36,7 @@
     "@franzzemen/logger-adapter": "^4.3.0",
     "@franzzemen/re-common": "10.4.6",
     "@franzzemen/re-data-type": "9.4.5",
-    "@franzzemen/re-expression": "5.0.3",
+    "@franzzemen/re-expression": "5.0.4",
     "fastest-validator": "^1.15.0"
   }
 }

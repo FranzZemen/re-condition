@@ -46,7 +46,7 @@ export const conditionOptionsSchemaWrapper = {
   props: conditionOptionsSchema
 };
 
-const reConditionSchema = {
+export const reConditionSchema = {
   common: commonOptionsSchemaWrapper,
   data: dataTypeOptionsSchemaWrapper,
   expression: expressionOptionsSchemaWrapper,
