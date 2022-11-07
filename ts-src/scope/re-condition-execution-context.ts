@@ -20,7 +20,7 @@ export interface ConditionOptions {
 }
 
 export interface ReCondition extends ReExpression {
-  condition?: ConditionOptions;
+  're-condition'?: ConditionOptions;
 }
 
 export interface ConditionExecutionContext extends ExpressionExecutionContext {
@@ -31,10 +31,10 @@ export class ConditionExecutionContextDefaults {
   static ConditionOptions: ConditionOptions = {
   }
   static ReCondition: ReCondition = {
-    common: CommonExecutionContextDefaults.CommonOptions,
-    data: DataTypeExecutionContextDefaults.DataTypeOptions,
-    expression: ExpressionExecutionContextDefaults.ExpressionOptions,
-    condition: ConditionExecutionContextDefaults.ConditionOptions
+    're-common': CommonExecutionContextDefaults.CommonOptions,
+    're-data-type': DataTypeExecutionContextDefaults.DataTypeOptions,
+    're-expression': ExpressionExecutionContextDefaults.ExpressionOptions,
+    're-condition': ConditionExecutionContextDefaults.ConditionOptions
   }
   static ConditionExecutionContext: ConditionExecutionContext = {
     execution: ExecutionContextDefaults.Execution(),
@@ -55,10 +55,10 @@ export const conditionOptionsSchemaWrapper = {
 };
 
 export const reConditionSchema = {
-  common: commonOptionsSchemaWrapper,
-  data: dataTypeOptionsSchemaWrapper,
-  expression: expressionOptionsSchemaWrapper,
-  condition: conditionOptionsSchemaWrapper,
+  're-common': commonOptionsSchemaWrapper,
+  're-data-type': dataTypeOptionsSchemaWrapper,
+  're-expression': expressionOptionsSchemaWrapper,
+  're-condition': conditionOptionsSchemaWrapper,
 };
 
 export const reConditionSchemaWrapper = {
